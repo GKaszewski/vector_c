@@ -80,24 +80,26 @@ void print_vector(vector* v) {
     }
 }
 
-void pretty_print_vector(vector* v, const char* type) {
-    if (strcmp(type, "int") == 0) {
-        for (size_t i = 0; i < v->size; i++) {
-            printf("%d\n", *(int*)(v->data + i * v->element_size));
+void pretty_print_vector(vector* v, const type t) {
+    for (size_t i = 0; i < v->size; i++) {
+        switch (t) {
+            case INT:
+                printf("%d\n", *(int*)(v->data + i * v->element_size));
+                break;
+            case FLOAT:
+                printf("%f\n", *(float*)(v->data + i * v->element_size));
+                break;
+            case DOUBLE:
+                printf("%lf\n", *(double*)(v->data + i * v->element_size));
+                break;
+            case CHAR:
+                printf("%c\n", *(char*)(v->data + i * v->element_size));
+                break;
+            case STRING:
+                printf("%s\n", (char*)(v->data + i * v->element_size));
+                break;
+            default:
+                break;
         }
-    } else if (strcmp(type, "char") == 0) {
-        for (size_t i = 0; i < v->size; i++) {
-            printf("%c\n", *(char*)(v->data + i * v->element_size));
-        }
-    } else if (strcmp(type, "float") == 0) {
-        for (size_t i = 0; i < v->size; i++) {
-            printf("%f\n", *(float*)(v->data + i * v->element_size));
-        }
-    } else if (strcmp(type, "double") == 0) {
-        for (size_t i = 0; i < v->size; i++) {
-            printf("%f\n", *(double*)(v->data + i * v->element_size));
-        }
-    } else {
-        printf("Unsupported type\n");
     }
 }
